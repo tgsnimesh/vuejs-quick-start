@@ -26,6 +26,7 @@
                 class="nav-item"
                 v-for="({link}, index) in pages"
                 :key="index"
+                v-on:click.prevent="activePage = index"
               >
                 <a class="nav-link" aria-current="page" v-bind:href="link.url"
                   >{{ link.text }}</a
@@ -38,8 +39,8 @@
 
       <!-- content  -->
       <div class="container py-3 my-3 shadow">
-        <h2>{{ title }}</h2>
-        <p>{{ content }}</p>
+        <h2>{{ pages[activePage].title }}</h2>
+        <p>{{ pages[activePage].content }}</p>
       </div>
     </div>
   </body>
@@ -48,6 +49,7 @@
     Vue.createApp({
       data() {
         return {
+          activePage: 0,
           pages: [
             {
               link: { text: "Home", url: "index.html" },
