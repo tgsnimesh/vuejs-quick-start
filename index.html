@@ -21,8 +21,10 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <!-- generate nav link from navlinks data option -->
-            <li class="nav-item" v-for="link in navLinks">
-              <a class="nav-link" aria-current="page" href="">{{ link }}</a>
+            <li class="nav-item" v-for="(link, index) in navLinks" :key="index">
+              <a class="nav-link" aria-current="page" v-bind:href="link.link"
+                >{{ link.text }}</a
+              >
             </li>
           </ul>
         </div>
@@ -39,7 +41,11 @@
     Vue.createApp({
       data() {
         return {
-          navLinks: ["Home", "About", "Contact Us"],
+          navLinks: [
+            { text: "Home", link: "index.html" },
+            { text: "About", link: "about.html" },
+            { text: "Contact Us", link: "Contact-us.html" },
+          ],
         };
       },
     }).mount("nav");
