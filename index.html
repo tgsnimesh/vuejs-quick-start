@@ -16,7 +16,7 @@
   <body>
     <div id="app">
       <!-- Navigation bar -->
-      <nav class="navbar navbar-expand-lg navbar-light bg-light py-3 shadow">
+      <nav class="navbar navbar-expand-lg py-3 shadow" :class="navbarClass">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">Vue App</a>
           <div class="collapse navbar-collapse" id="navbarNav">
@@ -28,17 +28,29 @@
                 :key="index"
                 v-on:click.prevent="activePage = index"
               >
-                <a class="nav-link" aria-current="page" v-bind:href="link.url"
+                <a
+                  class="nav-link"
+                  :class="{ active: activePage === index }"
+                  aria-current="page"
+                  v-bind:href="link.url"
                   >{{ link.text }}</a
                 >
               </li>
             </ul>
           </div>
+          <button
+            class="btn btn-sm"
+            :class="btnClass"
+            type="button"
+            @click.prevent="useDarkTheam = !useDarkTheam"
+          >
+            Dark Mod
+          </button>
         </div>
       </nav>
 
       <!-- content  -->
-      <div class="container py-3 my-3 shadow">
+      <div class="container py-3 my-3 shadow" :class="contentClass">
         <h2>{{ pages[activePage].title }}</h2>
         <p>{{ pages[activePage].content }}</p>
       </div>
@@ -47,9 +59,32 @@
 
   <script>
     Vue.createApp({
+      computed: {
+        navbarClass() {
+          return {
+            "navbar-light bg-light": !this.useDarkTheam,
+            "navbar-dark bg-dark": this.useDarkTheam,
+          };
+        },
+        btnClass() {
+          return {
+            "btn-outline-dark": !this.useDarkTheam,
+            "btn-outline-light": this.useDarkTheam,
+          };
+        },
+        contentClass() {
+          return {
+            "bg-light": !this.useDarkTheam,
+            "bg-dark": this.useDarkTheam,
+            "text-light": this.useDarkTheam,
+            "text-dark": !this.useDarkTheam,
+          };
+        },
+      },
       data() {
         return {
           activePage: 0,
+          useDarkTheam: false,
           pages: [
             {
               link: { text: "Home", url: "index.html" },
