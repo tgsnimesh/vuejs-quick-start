@@ -14,26 +14,33 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   </head>
   <body>
-    <!-- Navigation bar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light py-3 shadow">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">Vue App</a>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <!-- generate nav link from navlinks data option -->
-            <li class="nav-item" v-for="(link, index) in navLinks" :key="index">
-              <a class="nav-link" aria-current="page" v-bind:href="link.link"
-                >{{ link.text }}</a
+    <div id="app">
+      <!-- Navigation bar -->
+      <nav class="navbar navbar-expand-lg navbar-light bg-light py-3 shadow">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Vue App</a>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <!-- generate nav link from navlinks data option -->
+              <li
+                class="nav-item"
+                v-for="({link}, index) in pages"
+                :key="index"
               >
-            </li>
-          </ul>
+                <a class="nav-link" aria-current="page" v-bind:href="link.url"
+                  >{{ link.text }}</a
+                >
+              </li>
+            </ul>
+          </div>
         </div>
+      </nav>
+
+      <!-- content  -->
+      <div class="container py-3 my-3 shadow">
+        <h2>{{ title }}</h2>
+        <p>{{ content }}</p>
       </div>
-    </nav>
-    <!-- App -->
-    <div id="app" class="container py-3 my-3 shadow">
-      <h2>{{ title }}</h2>
-      <p>{{ content }}</p>
     </div>
   </body>
 
@@ -41,20 +48,26 @@
     Vue.createApp({
       data() {
         return {
-          navLinks: [
-            { text: "Home", link: "index.html" },
-            { text: "About", link: "about.html" },
-            { text: "Contact Us", link: "Contact-us.html" },
+          pages: [
+            {
+              link: { text: "Home", url: "index.html" },
+              title: "This is title of home",
+              content:
+                "Lorem ipsum, dolor sit amet consectetur adipisicing elit.",
+            },
+            {
+              link: { text: "About", url: "about.html" },
+              title: "This is title of about",
+              content:
+                "Lorem ipsum, dolor in rerum corrupti sunt possimus nisi deleniti veritatis!",
+            },
+            {
+              link: { text: "Contact Us", url: "Contact-us.html" },
+              title: "This is title of contact us",
+              content:
+                "Lorem ipsum, Aperiam, ducimus distinctio!  sunt possimus nisi deleniti veritatis!",
+            },
           ],
-        };
-      },
-    }).mount("nav");
-
-    Vue.createApp({
-      data() {
-        return {
-          title: "Page Title",
-          content: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
         };
       },
     }).mount("#app");
